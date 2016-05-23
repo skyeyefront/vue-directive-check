@@ -1,0 +1,66 @@
+<div id="demo" class="container">
+<h1>Vue自定义指令: v-check</h1>
+
+<!--使用说明-->
+<h2>使用说明:</h2>
+<section id="usages">
+<h3>第一步: 安装</h3>
+<pre class="javascript">
+Vue.use(
+  VueDirectiveCheck, {
+    debug: true,
+    formExtends: {
+      // 新增方法
+      isTest: function (configs, regs) {
+        // configs 已有的校验方法 [Object]
+        // regs 已有的正则 [Object]
+        return function (v) {
+          // 对v的校验逻辑 ...
+          // return 校验结果
+        }
+      },
+      // 覆盖已有方法
+      isMd5: function (configs, regs) {
+        return function (v) {
+
+        }
+      },
+      /* 错误示例 */
+      // 命名不符合[isYourFunctionName]规范
+      t1: function () {
+
+      },
+      // 未返回一个函数
+      isT1: function () {
+
+      },
+      // 不是函数
+      isT2: 'hi test'
+    },
+    regExtends: {
+      md5: /^[a-z0-9]{32}$/,
+      md6: /^[a-z0-9]{32}$/
+    }
+  }
+)
+</pre>
+
+<h3>第二步: 在HTML中使用</h3>
+<pre class="javascript">
+&lt;input type="text" v-model="name" v-check:not-empty="name"&gt;
+</pre>
+</section>
+
+<!--示例-->
+<h2>示例:</h2>
+<section id="showcases">
+    <h3>not-empty</h3>
+    <input type="text"
+           v-model="name"
+           v-check:not-empty="name"
+           @change="onChange">
+    <span class="checked-result {{ checkName === false ? 'error' : 'success' }}">
+        结果[{{ checkName }}]
+    </span>
+</section>
+</div>
