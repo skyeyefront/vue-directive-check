@@ -1,66 +1,296 @@
 <div id="demo" class="container">
-<h1>Vue自定义指令: v-check</h1>
+    <h1>Vue自定义指令: v-check</h1>
+    <h2>Tips:</h2>
+    <p>参数列表第一个参数均为需要校验的值对应的参数(必要参数), 其余参数根据校验方法而定</p>
+    <p>v-check:[type].force: 第一次强制校验</p>
+    <!--isNumber-->
+    <section>
+        <h2>isNumber</h2>
+        <h3>v-check:number="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a1"
+               v-check:number="a1">
+        <span class="checked-result {{ checkA1 === false ? 'error' : 'success' }}">
+            结果[{{ checkA1 }}]
+        </span>
+    </section>
+    <!--isString-->
+    <section>
+        <h2>isString</h2>
+        <h3>v-check:string="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a2"
+               v-check:string="a2">
+        <span class="checked-result {{ checkA2 === false ? 'error' : 'success' }}">
+            结果[{{ checkA2 }}]
+        </span>
+    </section>
+    <!--isArray-->
+    <section>
+        <h2>isArray</h2>
+        <h3>v-check:array="v"</h3>
+        <h3>参数: [v]</h3>
+        <pre v-check:array="a3">{{ a3 | json }}</pre>
+        <span class="checked-result {{ checkA3 === false ? 'error' : 'success' }}">
+            结果[{{ checkA3 }}]
+        </span>
+    </section>
+    <!--isObject-->
+    <section>
+        <h2>isObject</h2>
+        <h3>v-check:object="v"</h3>
+        <h3>参数: [v]</h3>
+        <pre v-check:object="a4">{{ a4 | json }}</pre>
+        <span class="checked-result {{ checkA4 === false ? 'error' : 'success' }}">
+            结果[{{ checkA4 }}]
+        </span>
+    </section>
+    <!--isFunction-->
+    <section>
+        <h2>isFunction</h2>
+        <h3>v-check:function="v"</h3>
+        <h3>参数: [v]</h3>
+        <pre v-check:function.force="a5">{{ a5 }}</pre>
+        <span class="checked-result {{ checkA5 === false ? 'error' : 'success' }}">
+            结果[{{ checkA5 }}]
+        </span>
+    </section>
+    <!--isNotEmpty-->
+    <section>
+        <h2>isNotEmpty</h2>
+        <h3>v-check:not-empty="v" v-bind:multi-args="[isTrim]"</h3>
+        <h3>参数: [v, isTrim], isTrim 非必要, 默认值false, 判断是否去掉所有空格</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a6"
+               v-check:not-empty="a6"
+               v-bind:multi-args="[a6Options.isTrim]">
+        <label>isTrim: </label>
+        <input type="checkbox" v-model="a6Options.isTrim">
+        <span class="checked-result {{ checkA6 === false ? 'error' : 'success' }}">
+            结果[{{ checkA6 }}]
+        </span>
+    </section>
+    <!--isId-->
+    <section>
+        <h2>isId</h2>
+        <h3>v-check:id="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a7"
+               v-check:id="a7">
+        <span class="checked-result {{ checkA7 === false ? 'error' : 'success' }}">
+            结果[{{ checkA7 }}]
+        </span>
+    </section>
+    <!--isEmail-->
+    <section>
+        <h2>isEmail</h2>
+        <h3>v-check:email="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a8"
+               v-check:email="a8">
+        <span class="checked-result {{ checkA8 === false ? 'error' : 'success' }}">
+            结果[{{ checkA8 }}]
+        </span>
+    </section>
+    <!--isMobile-->
+    <section>
+        <h2>isMobile</h2>
+        <h3>v-check:mobile="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a9"
+               v-check:mobile="a9">
+        <span class="checked-result {{ checkA9 === false ? 'error' : 'success' }}">
+            结果[{{ checkA9 }}]
+        </span>
+    </section>
+    <!--isTel-->
+    <section>
+        <h2>isTel</h2>
+        <h3>v-check:tel="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a10"
+               v-check:tel="a10">
+        <span class="checked-result {{ checkA10 === false ? 'error' : 'success' }}">
+            结果[{{ checkA10 }}]
+        </span>
+    </section>
+    <!--isIpv4-->
+    <section>
+        <h2>isIpv4</h2>
+        <h3>v-check:ipv4="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a11"
+               v-check:ipv4="a11">
+        <span class="checked-result {{ checkA11 === false ? 'error' : 'success' }}">
+            结果[{{ checkA11 }}]
+        </span>
+    </section>
+    <!--isIpv6-->
+    <section>
+        <h2>isIpv6</h2>
+        <h3>v-check:ipv6="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a12"
+               v-check:ipv6="a12">
+        <span class="checked-result {{ checkA12 === false ? 'error' : 'success' }}">
+            结果[{{ checkA12 }}]
+        </span>
+    </section>
+    <!--isIp-->
+    <section>
+        <h2>isIp</h2>
+        <h3>v-check:ip="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a13"
+               v-check:ip="a13">
+        <span class="checked-result {{ checkA13 === false ? 'error' : 'success' }}">
+            结果[{{ checkA13 }}]
+        </span>
+    </section>
+    <!--isMd5-->
+    <section>
+        <h2>isMd5</h2>
+        <h3>v-check:md5="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a14"
+               v-check:md5="a14">
+        <span class="checked-result {{ checkA14 === false ? 'error' : 'success' }}">
+            结果[{{ checkA14 }}]
+        </span>
+    </section>
+    <!--isUrl-->
+    <section>
+        <h2>isUrl</h2>
+        <h3>v-check:url="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a15"
+               v-check:url="a15">
+        <span class="checked-result {{ checkA15 === false ? 'error' : 'success' }}">
+            结果[{{ checkA15 }}]
+        </span>
+    </section>
+    <!--isMinLen-->
+    <section>
+        <h2>isMinLen</h2>
+        <h3>v-check:min-len="v" v-bind:multi-args="[len]"</h3>
+        <h3>参数: [v, len], len 必要, 校验的长度值</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a16"
+               v-check:min-len="a16"
+               v-bind:multi-args="[a16Options.len]">
+        <label>len: </label>
+        <input type="text" v-model="a16Options.len">
+        <span class="checked-result {{ checkA16 === false ? 'error' : 'success' }}">
+            结果[{{ checkA16 }}]
+        </span>
+    </section>
+    <!--isMaxLen-->
+    <section>
+        <h2>isMaxLen</h2>
+        <h3>v-check:max-len="v" v-bind:multi-args="[len]"</h3>
+        <h3>参数: [v, len], len 必要, 校验的长度值</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a17"
+               v-check:max-len="a17"
+               v-bind:multi-args="[a17Options.len]">
+        <label>len: </label>
+        <input type="text" v-model="a17Options.len">
+        <span class="checked-result {{ checkA17 === false ? 'error' : 'success' }}">
+            结果[{{ checkA17 }}]
+        </span>
+    </section>
+    <!--isRangeLen-->
+    <section>
+        <h2>isRangeLen</h2>
+        <h3>v-check:range-len="v" v-bind:multi-args="[min, max]"</h3>
+        <h3>参数: [v, min, max], min 必要, 校验的长度下限; max 必要, 校验的长度上限</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a18"
+               v-check:range-len="a18"
+               v-bind:multi-args="[a18Options.min, a18Options.max]">
+        <label>min: </label>
+        <input type="text" v-model="a18Options.min">
+        <label>max: </label>
+        <input type="text" v-model="a18Options.max">
+        <span class="checked-result {{ checkA18 === false ? 'error' : 'success' }}">
+            结果[{{ checkA18 }}]
+        </span>
+    </section>
+    <!--isJson-->
+    <section>
+        <h2>isJson</h2>
+        <h3>v-check:json="v"</h3>
+        <h3>参数: [v]</h3>
+        <input type="text"
+               class="example-input"
+               v-model="a19"
+               v-check:json="a19">
+        <span class="checked-result {{ checkA19 === false ? 'error' : 'success' }}">
+            结果[{{ checkA19 }}]
+        </span>
+    </section>
+    <!--在循环中使用-->
+    <section>
+        <h2>在循环中使用</h2>
+        <h3>v-check:[type]="v" v-bind:loop-var="循环对象"</h3>
+        <div v-for="item in a20">
+            <p>
+                <label>ID</label><br>
+                <b>v-check:id</b><br>
+                <input type="text" class="example-input"
+                       v-model="item.id"
+                       v-check:id="item.id"
+                       v-bind:loop-var="item">
+                <span class="checked-result {{ item.checkId === false ? 'error' : 'success' }}">结果[{{ item.checkId }}]</span>
+            </p>
+            <p>
+                <label>Email</label><br>
+                <b>v-check:email</b><br>
+                <input type="text" class="example-input"
+                       v-model="item.email"
+                       v-check:email="item.email"
+                       v-bind:loop-var="item">
+                <span class="checked-result {{ item.checkEmail === false ? 'error' : 'success' }}">结果[{{ item.checkEmail }}]</span>
+            </p>
 
-<!--使用说明-->
-<h2>使用说明:</h2>
-<section id="usages">
-<h3>第一步: 安装</h3>
-<pre class="javascript">
-Vue.use(
-  VueDirectiveCheck, {
-    debug: true,
-    formExtends: {
-      // 新增方法
-      isTest: function (configs, regs) {
-        // configs 已有的校验方法 [Object]
-        // regs 已有的正则 [Object]
-        return function (v) {
-          // 对v的校验逻辑 ...
-          // return 校验结果
-        }
-      },
-      // 覆盖已有方法
-      isMd5: function (configs, regs) {
-        return function (v) {
-
-        }
-      },
-      /* 错误示例 */
-      // 命名不符合[isYourFunctionName]规范
-      t1: function () {
-
-      },
-      // 未返回一个函数
-      isT1: function () {
-
-      },
-      // 不是函数
-      isT2: 'hi test'
-    },
-    regExtends: {
-      md5: /^[a-z0-9]{32}$/,
-      md6: /^[a-z0-9]{32}$/
-    }
-  }
-)
-</pre>
-
-<h3>第二步: 在HTML中使用</h3>
-<pre class="javascript">
-&lt;input type="text" v-model="name" v-check:not-empty="name"&gt;
-</pre>
-</section>
-
-<!--示例-->
-<h2>示例:</h2>
-<section id="showcases">
-    <h3>not-empty</h3>
-    <input type="text"
-           v-model="name"
-           v-check:not-empty="name"
-           @change="onChange">
-    <span class="checked-result {{ checkName === false ? 'error' : 'success' }}">
-        结果[{{ checkName }}]
-    </span>
-</section>
+            <p>
+                <label>Password</label><br>
+                <b>v-check:range-len</b><br>
+                <b>v-bind:multi-args="[{{a20Options.passwordLen.min}},{{a20Options.passwordLen.max}}]"</b><br>
+                <input type="text" class="example-input"
+                       v-model="item.password"
+                       v-check:range-len="item.password"
+                       v-bind:loop-var="item"
+                       v-bind:multi-args="[a20Options.passwordLen.min, a20Options.passwordLen.max]">
+                <span class="checked-result {{ item.checkPassword === false ? 'error' : 'success' }}">结果[{{ item.checkPassword }}]</span>
+            </p>
+            <hr>
+        </div>
+    </section>
 </div>

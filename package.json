@@ -1,12 +1,16 @@
 {
+  "_addons": {
+    "group": "360 Skyeye FrontEnd"
+  },
   "name": "vue-directive-check",
   "version": "1.0.0",
   "description": "vue自定义值检查指令v-check",
-  "main": "index.js",
+  "main": "dist/skyeye.vue.directive.check.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node build/dev.js",
-    "pro": "node build/pro.js"
+    "pro": "node build/pro.js",
+    "examplespro": "node build/examples.pro.js"
   },
   "repository": {
     "type": "git",

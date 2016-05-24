@@ -7,11 +7,29 @@ import log from './logs.js'
 let regsConfigs = regs.configs
 let configs = {}
 /**
+ * 计算长度
+ * @param v
+ * @returns {*}
+ * @private
+ */
+let _length = function (v) {
+  if (configs.isNumber(v) || configs.isString(v)) {
+    v = '' + v
+    return v.length
+  } else if (configs.isArray(v)) {
+    return v.length
+  } else if (configs.isObject(v)) {
+    return Object.keys(v).length
+  } else {
+    return -1
+  }
+}
+/**
  * 函数命名规则 isYourFunctionName（必须是驼峰式）
  */
 // 数字
 configs.isNumber = function (v) {
-  return typeof v === 'number'
+  return typeof v === 'number' || !isNaN(+v)
 }
 
 // 字符串
@@ -102,12 +120,12 @@ configs.isUrl = function (v) {
 
 // 最小长度
 configs.isMinLen = function (v, l) {
-  return v.length >= l
+  return _length(v) >= l
 }
 
 // 最大长度
 configs.isMaxLen = function (v, l) {
-  return v.length <= l
+  return _length(v) <= l
 }
 
 // 长度范围

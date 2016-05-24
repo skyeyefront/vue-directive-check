@@ -5,6 +5,7 @@ var path = require('path')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.config.js')
+var utils = require('./utils.js')
 
 module.exports = merge(baseWebpackConfig, {
   entry: {
@@ -21,6 +22,9 @@ module.exports = merge(baseWebpackConfig, {
       compress: {
         warnings: false
       }
+    }),
+    new webpack.BannerPlugin(utils.banner(), {
+      entryOnly: true
     })
   ]
 })

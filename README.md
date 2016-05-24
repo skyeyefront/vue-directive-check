@@ -80,3 +80,7 @@
       		md6: /^[a-z0-9]{32}$/
     	}
 	}
+	
+### 示例运行
+	运行环境：python2.7, Flask, npm
+	进入examples目录执行python demorun.py
