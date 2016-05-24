@@ -25,6 +25,11 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new webpack.BannerPlugin(utils.banner(), {
       entryOnly: true
+    }),
+    new webpack.DefinePlugin({
+      'process.skyeye': {
+        'ENV': JSON.stringify('pro')
+      }
     })
   ]
 })

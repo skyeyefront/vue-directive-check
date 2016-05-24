@@ -9,9 +9,14 @@ import './index.css'
 import template from './index.html'
 import VueDirectiveCheck from '../../../src/index.js'
 
+// 根据开发环境进行对应的操作
+let debug = process.skyeye.ENV === 'dev'
+Vue.config.debug = debug
+Vue.config.silent = !debug
+
 Vue.use(
   VueDirectiveCheck, {
-    debug: true,
+    debug,
     formExtends: {
       // 新增方法
       isTest: function (configs, regs) {
@@ -103,7 +108,6 @@ let app = {
     $('pre').each(function (i, block) {
       hljs.highlightBlock(block)
     })
-    console.log(this)
   },
   template
 }

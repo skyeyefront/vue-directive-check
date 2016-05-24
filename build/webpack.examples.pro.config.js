@@ -24,6 +24,11 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new webpack.BannerPlugin('Build Time: ' + new Date().toLocaleString(), {
       entryOnly: true
+    }),
+    new webpack.DefinePlugin({
+      'process.skyeye': {
+        'ENV': JSON.stringify('pro')
+      }
     })
   ]
 })
