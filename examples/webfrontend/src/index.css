@@ -22,15 +22,20 @@ h2 {
 section {
     padding: 8px;
     background-color: #2e2e2e;
-    margin: 8px;
     color: #ffffff;
+    margin-bottom: 16px;
+}
+
+input.example-input {
+    width: 360px;
 }
 
 .checked-result {
-    display: inline-block;
+    display: block;
     height: 30px;
     line-height: 30px;
     padding: 0 8px;
+    margin-top: 8px;
 }
 
 .checked-result.error {

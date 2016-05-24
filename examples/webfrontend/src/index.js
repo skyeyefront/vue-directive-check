@@ -9,9 +9,14 @@ import './index.css'
 import template from './index.html'
 import VueDirectiveCheck from '../../../src/index.js'
 
+// 根据开发环境进行对应的操作
+let debug = process.skyeye.ENV === 'dev'
+Vue.config.debug = debug
+Vue.config.silent = !debug
+
 Vue.use(
   VueDirectiveCheck, {
-    debug: true,
+    debug,
     formExtends: {
       // 新增方法
       isTest: function (configs, regs) {
@@ -50,12 +55,53 @@ Vue.use(
 let app = {
   data () {
     return {
-      name: 'skyeye huangxin'
-    }
-  },
-  methods: {
-    onChange: function () {
-      console.log(this.checkName)
+      a1: 360, // isNumber
+      a2: '360 skyeye', // isString
+      a3: [ 360, 'skyeye' ], // isArray
+      a4: { org: 'skyeye' }, // isObject
+      a5: function () { return 'skyeye' }, // isFunction
+      a6: 'hi, skyeye', // isNotEmpty
+      a6Options: {
+        isTrim: false
+      },
+      a7: '110110200512250360', // isId
+      a8: 'huangxin-xy@360.cn', // isEmail
+      a9: '18511581045', // isMobile
+      a10: '56601234', // isTel
+      a11: '192.168.1.1', // isIpv4
+      a12: '2001:0DB8:02de:0000:0000:0000:0000:0e13', // isIpv6
+      a13: '8.8.8.8', // isIp
+      a14: '9e107d9d372bb6826bd81d3542a419d6', // isMd5
+      a15: 'https://skyeye.360safe.com/', // isUrl
+      a16: 'hi, i am a coder', // isMinLen
+      a16Options: {
+        len: 10
+      },
+      a17: 'hi, we are skyeyer', // isMaxLen
+      a17Options: {
+        len: 20
+      },
+      a18: 'hi, enjoy', // isRangeLen
+      a18Options: {
+        min: 10,
+        max: 20
+      },
+      a19: '{"org": "skyeye"}', // isJson
+      a20: [ { // 循环校验
+        id: '110110200512250360',
+        email: 'huangxin-xy@360.cn',
+        password: '123456'
+      }, {
+        id: '11011020051225',
+        email: 'huangxin-xy360.cn',
+        password: '12345678'
+      } ],
+      a20Options: {
+        passwordLen: {
+          min: 8,
+          max: 20
+        }
+      }
     }
   },
   ready: function () {
@@ -66,10 +112,12 @@ let app = {
   template
 }
 
-let example = new Vue({
-  el: 'body',
-  components: {
-    app
-  }
-})
-example
+let run = function () {
+  return new Vue({
+    el: 'body',
+    components: {
+      app
+    }
+  })
+}
+run()
