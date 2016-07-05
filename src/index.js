@@ -5,12 +5,10 @@ import log from './logs.js'
 let formsConfigs = forms.configs
 
 export default {
-  install: function (Vue, options = { debug: false, formExtends: {}, regExtends: {} }) {
-    let id = 'check'
-    let debug = options.debug
-    let formExtends = options.formExtends
-    let regExtends = options.regExtends
+  install: function (Vue, {name = 'check', debug = false, formExtends = {}, regExtends = {}} = {}) {
     log.isDebug = debug
+    Vue.config.debug = debug
+    Vue.config.silent = !debug
 
     /**
      * 生成驼峰串
@@ -37,14 +35,14 @@ export default {
      *              false                               校验失败
      *              true                                校验成功
      *
-     * 在模板中使用
-     *              v-check:email="abc"                  checkAbc
-     *              v-check:email.force="a.abc"          a.checkAbc
-     *              v-check:email.force="a.b.c.abc"      a.b.c.checkAbc
+     * 在模板中使用[name: 安装时的名称]
+     *              v-[name]:email="abc"                  [name]Abc
+     *              v-[name]:email.force="a.abc"          a.[name]Abc
+     *              v-[name]:email.force="a.b.c.abc"      a.b.c.[name]Abc
      */
-    let check = {
+    let directive = {
       // 若在v-for（循环）中使用，必须绑定v-bind:loop-var="循环变量"，而且循环变量必须是object（{}），不能是一个基础类型（number，string）
-      // 当校验函数包含多个参数时，必须绑定v-bind:multi-args="[参数2, 参数3, ..., 参数n]"（参数1就是校验的值即check指令绑定的变量）
+      // 当校验函数包含多个参数时，必须绑定v-bind:multi-args="[参数2, 参数3, ..., 参数n]"（参数1就是校验的值即指令绑定的变量）
       params: [ 'loop-var', 'multi-args' ],
       bind: function () {
         // 准备工作
@@ -52,20 +50,20 @@ export default {
         this.init = -1
         this.formsKey = capitalize(this.arg, 'is', '-')
         this.loopVar = this.params.loopVar
-        this.expressionSuffix = capitalize(expressionArr.pop(), 'check')
+        this.expressionSuffix = capitalize(expressionArr.pop(), name)
         if (this.loopVar) {
           Vue.set(this.loopVar, this.expressionSuffix, null)
         } else {
           this.noLoopVar = expressionArr.push(this.expressionSuffix) && expressionArr.join('.')
           this.vm.$set(this.noLoopVar, null)
         }
-        log.log('指令[' + id + '] => bind', '方法: ' + this.formsKey)
+        log.log('指令[' + name + '] => bind', '方法: ' + this.formsKey)
         // log.log(this.descriptor)
         // log.log(this.params)
         // log.log(this.vm)
       },
       update: function (now) {
-        log.log('指令[' + id + '] => update', now)
+        log.log('指令[' + name + '] => update', now)
         // 值更新时的工作
         // 也会以初始值为参数调用一次
         let flag = now
@@ -91,12 +89,12 @@ export default {
 
     // 安装
     if (Vue && Vue.directive instanceof Function) {
-      Vue.directive(id, check)
-      log.info('指令[' + id + ']安装成功!')
+      Vue.directive(name, directive)
+      log.info('指令[' + name + ']安装成功!')
       forms.extend(formExtends)
       regs.extend(regExtends)
     } else {
-      log.error('指令[' + id + ']安装失败, 原因: Vue 异常')
+      log.error('指令[' + name + ']安装失败, 原因: Vue 异常')
     }
   },
   forms: forms.configs,

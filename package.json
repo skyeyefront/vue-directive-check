@@ -2,8 +2,8 @@
   "_addons": {
     "group": "360 Skyeye FrontEnd"
   },
-  "name": "vue-directive-check",
-  "version": "1.0.0",
+  "name": "skyeye-vue-directive-check",
+  "version": "1.0.3",
   "description": "vue自定义值检查指令v-check",
   "main": "dist/skyeye.vue.directive.check.min.js",
   "scripts": {
