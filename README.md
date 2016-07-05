@@ -1,4 +1,4 @@
-# 自定义值检查指令: v-check
+# 自定义值检查指令
 ### modifiers    
 	force（第一次强制校验）
 	
@@ -10,14 +10,14 @@
     false 校验失败
     true  校验成功
     
-### 在模板中使用
-	v-check:email="abc"                  checkAbc
-	v-check:email.force="a.abc"          a.checkAbc
-	v-check:email.force="a.b.c.abc"      a.b.c.checkAbc
+### 在模板中使用[options.name为安装时设置的指令名称]
+	v-[options.name]:email="abc"                  [options.name]Abc
+	v-[options.name]:email.force="a.abc"          a.[options.name]Abc
+	v-[options.name]:email.force="a.b.c.abc"      a.b.c.[options.name]Abc
 	
 ### 注意
 	1、若在v-for（循环）中使用，必须绑定v-bind:loop-var="循环变量"，而且循环变量必须是object（{}），不能是一个基础类型（number，string）
-	2、当校验函数包含多个参数时，必须绑定v-bind:multi-args="[参数2, 参数3, ..., 参数n]"（参数1就是校验的值即check指令绑定的变量）
+	2、当校验函数包含多个参数时，必须绑定v-bind:multi-args="[参数2, 参数3, ..., 参数n]"（参数1就是校验的值即指令绑定的变量）
 	
 ### 安装
 	如下‘FILE_PATH’代表vue.directive.check的文件路径
@@ -43,6 +43,7 @@
 	
 ### 安装选项
 	options = {
+		name: 'check', // 指令名称，例如：当name='checkform'，则指令变为v-checkform
 		debug: true | false, // 为true时包含调试输出
 		/* 检验方法扩展 */
 		formExtends: {

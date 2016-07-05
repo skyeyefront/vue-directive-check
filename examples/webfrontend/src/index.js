@@ -16,6 +16,7 @@ Vue.config.silent = !debug
 
 Vue.use(
   VueDirectiveCheck, {
+    name: 'check',
     debug,
     formExtends: {
       // 新增方法
